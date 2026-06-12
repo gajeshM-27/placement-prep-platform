@@ -13,9 +13,8 @@ public class StudentController {
     private final StudentService studentService;
 
     public StudentController(StudentService studentService) {
-    this.studentService = studentService;
-    System.out.println("StudentController Loaded!");
-}
+        this.studentService = studentService;
+    }
 
     @PostMapping
     public Student saveStudent(@RequestBody Student student) {
@@ -25,5 +24,21 @@ public class StudentController {
     @GetMapping
     public List<Student> getAllStudents() {
         return studentService.getAllStudents();
+    }
+
+    @GetMapping("/{id}")
+    public Student getStudentById(@PathVariable Long id) {
+        return studentService.getStudentById(id);
+    }
+
+    @PutMapping("/{id}")
+    public Student updateStudent(@PathVariable Long id, @RequestBody Student student) {
+        return studentService.updateStudent(id, student);
+    }
+
+    @DeleteMapping("/{id}")
+    public String deleteStudent(@PathVariable Long id) {
+        studentService.deleteStudent(id);
+        return "Student deleted successfully";
     }
 }
